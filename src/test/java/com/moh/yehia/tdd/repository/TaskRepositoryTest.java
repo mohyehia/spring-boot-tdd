@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,6 +33,17 @@ class TaskRepositoryTest {
         assertThat(retrievedTask).isNotNull();
         assertThat(retrievedTask.getId()).isPositive()
                 .isEqualTo(savedTask.getId());
+    }
+
+    @Test
+    @DisplayName("Find all tasks")
+    void whenFindAllTasks_thenReturnAllTasks() {
+        Task task = taskRepository.save(populateTask());
+        List<Task> tasks = taskRepository.findAll();
+        assertThat(tasks).isNotNull()
+                .isNotEmpty()
+                .hasSize(1)
+                .contains(task);
     }
 
     @Test
