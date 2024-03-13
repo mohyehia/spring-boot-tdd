@@ -54,4 +54,10 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findAll() {
         return taskRepository.findAll();
     }
+
+    @Override
+    public Task findById(long taskId) {
+        return taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalStateException("No Task with this id found!"));
+    }
 }

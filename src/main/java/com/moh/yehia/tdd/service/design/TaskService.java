@@ -15,4 +15,6 @@ public interface TaskService {
     void deleteById(long taskId);
 
     List<Task> findAll();
+
+    Task findById(long taskId);
 }

@@ -54,6 +54,16 @@ class TaskServiceTest {
     }
 
     @Test
+    void givenTaskId_whenFindById_thenReturnTaskEntity() {
+        Task task = populateTask();
+        BDDMockito.given(taskRepository.findById(ArgumentMatchers.anyLong())).willReturn(Optional.of(task));
+        Task retrievedTask = taskService.findById(1);
+        Assertions.assertThat(retrievedTask).isNotNull();
+        Assertions.assertThat(retrievedTask.getId()).isPositive()
+                .isEqualTo(task.getId());
+    }
+
+    @Test
     void givenJobId_whenFindByJobId_thenReturnTaskEntity() {
         Task task = populateTask();
         BDDMockito.given(taskRepository.findByJobId(ArgumentMatchers.anyString())).willReturn(Optional.of(task));

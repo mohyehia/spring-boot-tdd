@@ -26,6 +26,16 @@ class TaskRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find task by taskId")
+    void givenTaskId_whenFindById_thenReturnTaskEntity() {
+        Task savedTask = taskRepository.save(populateTask());
+        Task retrievedTask = taskRepository.findById(savedTask.getId()).orElse(null);
+        assertThat(retrievedTask).isNotNull();
+        assertThat(retrievedTask.getId()).isPositive()
+                .isEqualTo(savedTask.getId());
+    }
+
+    @Test
     @DisplayName("Find task by jobId")
     void givenJobId_whenFindByJobId_thenReturnTaskEntity() {
         Task savedTask = taskRepository.save(populateTask());
